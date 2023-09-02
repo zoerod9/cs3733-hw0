@@ -65,40 +65,52 @@ char *ReadLine()
 
   /* Hint: initially dynamically allocate an array of char with size 10. */
   char *buff = malloc(10);
-  /* If you see '\n' char before reading 10th character, you are done. And you know the
-   * exact length of the input string */
 
   int initialSize = 10;
-  for (int i = 0; i < initialSize; i++)
+  for (int i = 0; i <= initialSize; i++)
   {
     char c = getchar();
-    if(c != '\n'){
+
+
+    if (c != '\n')
+    {
+      printf("%i, \n", i);
+      /* However, if you DO NOT see '\n' char after 10th character*/
+      if(i == initialSize){
+        /* resize your original array and double its size*/
+        initialSize = initialSize * 2;
+        printf("double buffer size realloc: dooubling to %i\n", initialSize);
+        realloc(buff, initialSize);
+      }
+
+      /* and continue reading data character by character as in the first step...*/
       buff[i] = c;
-    } else {
+    }
+    else
+    {
+      /* If you see '\n' char before reading 10th character, you are done. And you know the
+       * exact length of the input string */
       buff[i] = '\0';
-      if (i < initialSize){
+
+      /*
+       * So, accordingly allocate enough space and copy the
+       * data into new char array, insert '\0' instead of '\n' */
+      if (i < initialSize)
+      {
+        printf("reduce size realloc: reducing size to: %i\n", i);
         realloc(buff, i);
       }
+      /* and free the original array.
+       *
+       * Then return the new string.
+       */
       return buff;
     }
   }
+
   
-  /*
-   * So, accordingly allocate enough space and copy the
-   * data into new char array, insert '\0' instead of '\n' */
-
-
-
-  /* and free the original array.
-   *
-   * Then return the new string.
-   *
-   * However, if you DO NOT see '\n' char after 10th character,
-   *
-   * resize your original array and double its size
-   *
-   * and continue reading data character by character as in the first step...
-   *
+  
+   /*
    * Also please check for possible errors (e.g., no memory etc.) and appropriately handle
    * them. For example, if malloc returns NULL, free partially allocated space and return
    * NULL from this function. The program calling this function may take other actions,

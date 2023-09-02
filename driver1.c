@@ -63,26 +63,37 @@ char *ReadLine()
   // scanf("%s", buff);
   // return buff;
 
+  // YOU NEED TO DELETE ABOVE 3 LINES, and IMPLEMENT THIS as described above
+
   /* Hint: initially dynamically allocate an array of char with size 10. */
   char *buff = malloc(10);
+  if (buff == NULL)
+  {
+    free(buff);
+    return NULL;
+  }
 
   int initialSize = 10;
   for (int i = 0; i <= initialSize; i++)
   {
     char c = getchar();
 
-
     if (c != '\n')
     {
       printf("%i, \n", i);
       /* However, if you DO NOT see '\n' char after 10th character*/
-      if(i == initialSize){
+      if (i == initialSize)
+      {
         /* resize your original array and double its size*/
         initialSize = initialSize * 2;
         printf("double buffer size realloc: dooubling to %i\n", initialSize);
         realloc(buff, initialSize);
+        if (buff == NULL)
+        {
+          free(buff);
+          return NULL;
+        }
       }
-
       /* and continue reading data character by character as in the first step...*/
       buff[i] = c;
     }
@@ -99,6 +110,11 @@ char *ReadLine()
       {
         printf("reduce size realloc: reducing size to: %i\n", i);
         realloc(buff, i);
+        if (buff == NULL)
+        {
+          free(buff);
+          return NULL;
+        }
       }
       /* and free the original array.
        *
@@ -108,16 +124,12 @@ char *ReadLine()
     }
   }
 
-  
-  
-   /*
+  /*
    * Also please check for possible errors (e.g., no memory etc.) and appropriately handle
    * them. For example, if malloc returns NULL, free partially allocated space and return
    * NULL from this function. The program calling this function may take other actions,
    * e.g., stop the program!
    */
-
-  // YOU NEED TO DELETE ABOVE 3 LINES, and IMPLEMENT THIS as described above
-
+  
   return buff; // if there is any error!
 }

@@ -65,7 +65,11 @@ linked_list_T *NewLinkedList(void)
  */
 void FreeLinkedList(linked_list_T *list)
 {
-
+  // get length of list
+  // for 0:length of list
+    // get node
+    // free node
+  // free list
 }
 
 /*
@@ -76,7 +80,9 @@ void FreeLinkedList(linked_list_T *list)
  */
 void Enlist(linked_list_T *list, student_cell_T *element)
 {
-
+  // get the last person from the list
+  // store it in the new node as their next
+  // modify list to point to new first node
 }
 
 /*
@@ -89,7 +95,10 @@ void Enlist(linked_list_T *list, student_cell_T *element)
  */
 student_cell_T *Delist(linked_list_T *list)
 {
-
+  // from the line, get the original head
+  // get that first person's next
+  // set that "first person's next" to the head of the list object
+  // return the original head
 }
 
 /*
@@ -101,11 +110,14 @@ student_cell_T *Delist(linked_list_T *list)
  */
 int LinkedListIsEmpty(linked_list_T *list)
 {
-
+  // if the list object has no tail (or no head, really),
+  // it must be empty
 }
 
 int LinkedListIsFull(linked_list_T *list)
 {
+  // if the list has a tail or a head? 
+  // basically flip the boolean from the function above
   return 0; // because we have linked list
 }
 
@@ -117,8 +129,11 @@ int LinkedListIsFull(linked_list_T *list)
  */
 int LinkedListLength(linked_list_T  *list)
 {
-
+  // recursively traverse each node's next, adding 1 every time you recurse
+  // when you run into a node that equals the tail (or that node has no next)
+  // break recursion
 }
+  
 
 /*
  * Function: GetLinkedListElement
@@ -134,7 +149,9 @@ int LinkedListLength(linked_list_T  *list)
  */
 student_cell_T *GetLinkedListElement(linked_list_T *list, int index)
 {
-
+  // recursively traverse each node's next, adding 1 every time you recurse
+  // when you run into a node, and how many nodes you've traversed equals the index,
+  // break recursion
 }
 
 

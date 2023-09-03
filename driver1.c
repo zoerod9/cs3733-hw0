@@ -11,6 +11,8 @@
 
 void printNumberOfStudents(linked_list_T *list);
 void createStudent(linked_list_T *list);
+void removeStudent(linked_list_T *list);
+void printStudent(student_cell_T *student);
 
 /*
  * Function: ReadLine
@@ -47,6 +49,7 @@ int main(int argc, char *arvg[])
 \n8 - Exit\n");
   while (1)
   {
+    printf("---------------------\n");
     printf("Choose from 1-8:\n");
     char *userInputStr = ReadLine();
     sscanf(userInputStr, "%i", &userInput);
@@ -58,7 +61,7 @@ int main(int argc, char *arvg[])
     }
     if (userInput == 2)
     {
-      // removeStudent(list);
+      removeStudent(list);
     }
     if (userInput == 3)
     {
@@ -213,4 +216,24 @@ void createStudent(linked_list_T *list)
   printf("%s/%i/%lf\n", name, idInt, gpaDouble);
 
   Enlist(list, NewStudentCell(idInt, gpaDouble, name));
+}
+
+void removeStudent(linked_list_T *list)
+{
+  if (LinkedListIsEmpty(list))
+  {
+    printf("List is empty, nothing to remove!\n");
+  }
+  else
+  {
+    printf("Removing latest student entry\n");
+    student_cell_T *removed = Delist(list);
+    printStudent(removed);
+    free(removed);
+  }
+}
+
+void printStudent(student_cell_T *student)
+{
+  printf("%s/%i/%lf\n", student->name, student->id, student->gpa);
 }

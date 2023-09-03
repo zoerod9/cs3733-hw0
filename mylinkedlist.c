@@ -191,7 +191,7 @@ student_cell_T *GetLinkedListElement(linked_list_T *list, int index)
 int countNodesRecursive(student_cell_T *student, int length)
 {
 
-printf("before if youre here\n");
+  printf("before if youre here\n");
   if (student->next == NULL)
   {
     return length;
@@ -212,3 +212,4 @@ student_cell_T *getNodesRecursive(student_cell_T *student, int index, int desire
 
   return getNodesRecursive(student->next, index + 1, desiredIndex);
 }
+

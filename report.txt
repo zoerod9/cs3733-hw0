@@ -1,0 +1,12 @@
+1. I worked on this project by myself and received help from a private tutor
+2. I think there are some faults in my code. I think that the linkedList should
+   not start at index 1, but it does. I also think there could be some cases 
+   that I didn't test that may cause errors.
+3. Although the entire program more or less works as it should, it will crash 
+   when asking for the first student using index 0 instead of index 1.
+4. The primary challenge in this assignment was getting back in the flow of
+   programming. I have not written C code in a long time, and getting back on 
+   the horse was certainly a challenge. The removing of a member of the list 
+   at an index threw me for a loop (no pun intended), and fixing segmentation
+   faults due to poor error handling made me write a lot of if statements when
+   I thought I was done

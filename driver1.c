@@ -16,6 +16,7 @@ void removeStudent(linked_list_T *list);
 void printStudent(student_cell_T *student);
 // this one asks you which student to print from the list
 void printStudentFromList(linked_list_T *list);
+void printAllStudents(linked_list_T* list);
 
 /*
  * Function: ReadLine
@@ -41,6 +42,9 @@ int main(int argc, char *arvg[])
   // free(name);
   int userInput;
   linked_list_T *list = NewLinkedList();
+  Enlist(list, NewStudentCell(1, 1, "vinny"));
+  Enlist(list, NewStudentCell(2, 1, "zoe"));
+  Enlist(list, NewStudentCell(3, 1, "bubby"));
 
   printf("\n1 - Create a new student cell with given id, gpa, name info, and add (Enlist) it to the end of the linked list. \
 \n2 - Remove (Delist) the first student from linked list and print his/her id, gpa, name info\
@@ -76,7 +80,7 @@ int main(int argc, char *arvg[])
     }
     if (userInput == 5)
     {
-      // printsStudents(list);
+      printAllStudents(list);
     }
     if (userInput == 6)
     {
@@ -241,6 +245,7 @@ void printStudent(student_cell_T *student)
   printf("%s/%i/%lf\n", student->name, student->id, student->gpa);
 }
 
+
 void printStudentFromList(linked_list_T *list)
 {
   printf("Enter student's index\n");
@@ -250,4 +255,16 @@ void printStudentFromList(linked_list_T *list)
   sscanf(indexStr, "%i", &index);
   
   printf("Finding student with index: %i\n", index);
+
+ student_cell_T* student = GetLinkedListElement(list, index); 
+ printStudent(student);
+}
+
+void printAllStudents(linked_list_T* list){
+  printf("Printing all students\n");
+  int length = LinkedListLength(list);
+  for (int i = 1; i <= length; i++)
+  {
+    printStudent(GetLinkedListElement(list, i));
+  }
 }

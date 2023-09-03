@@ -1,6 +1,6 @@
 /*
  * File: driver1.c
- * YOUR NAME ... YOU NEED TO IMPLEMENT THE main() + additional functions if needed
+ * Zoe Rodriguez ... YOU NEED TO IMPLEMENT THE main() + additional functions if needed
  *
  * ....
  */
@@ -32,23 +32,13 @@ char *ReadLine(void);
 
 int main(int argc, char *arvg[])
 {
-  // YOU NEED TO IMPLEMENT THIS driver1.c USING FUNCTIONS FROM mylinkedlist.h
-  // But before that, implement your ReadLine() function, and test it as shown below.
-  // IF NEEDED, YOU CAN ALSO IMLEMENT YOUR OWN FUNCTIONS HERE
-
-  // char *name;
-
-  // printf("Enter a name to test your ReadLine function  : ");
-  // name = ReadLine();
-  // printf("User entered : %s \n", name);
-  // free(name);
   int userInput;
   linked_list_T *list = NewLinkedList();
-  Enlist(list, NewStudentCell(4, 4, "four"));
-  Enlist(list, NewStudentCell(5, 5, "five"));
-  Enlist(list, NewStudentCell(3, 3, "three"));
-  Enlist(list, NewStudentCell(2, 2, "two"));
-  Enlist(list, NewStudentCell(1, 1, "one"));
+  // Enlist(list, NewStudentCell(4, 4, "four"));
+  // Enlist(list, NewStudentCell(5, 5, "five"));
+  // Enlist(list, NewStudentCell(3, 3, "three"));
+  // Enlist(list, NewStudentCell(2, 2, "two"));
+  // Enlist(list, NewStudentCell(1, 1, "one"));
 
   printf("\n1 - Create a new student cell with given id, gpa, name info, and add (Enlist) it to the end of the linked list. \
 \n2 - Remove (Delist) the first student from linked list and print his/her id, gpa, name info\
@@ -64,7 +54,7 @@ int main(int argc, char *arvg[])
     printf("Choose from 1-8:\n");
     char *userInputStr = ReadLine();
     sscanf(userInputStr, "%i", &userInput);
-    // userInput = 1;
+    free(userInputStr);
 
     if (userInput == 1)
     {
@@ -97,6 +87,7 @@ int main(int argc, char *arvg[])
 
     if (userInput == 8)
     {
+      puts("Exiting");
       return 0;
     }
   }
@@ -127,13 +118,6 @@ int main(int argc, char *arvg[])
 
 char *ReadLine()
 {
-  // A SIMPLE WAY TO IMPLEMENT JUST TO TEST FOR NOW, BUT THIS IS NOT WHAT WE WANT!!!
-  // char *buff = malloc(100);
-  // scanf("%s", buff);
-  // return buff;
-
-  // YOU NEED TO DELETE ABOVE 3 LINES, and IMPLEMENT THIS as described above
-
   /* Hint: initially dynamically allocate an array of char with size 10. */
   char *buff = malloc(10);
   if (buff == NULL)
@@ -149,13 +133,12 @@ char *ReadLine()
 
     if (c != '\n')
     {
-      // printf("%i, \n", i);
       /* However, if you DO NOT see '\n' char after 10th character*/
       if (i == initialSize)
       {
         /* resize your original array and double its size*/
         initialSize = initialSize * 2;
-        // printf("double buffer size realloc: dooubling to %i\n", initialSize);
+        // printf("double buffer size realloc: doubling to %i\n", initialSize);
         realloc(buff, initialSize);
         if (buff == NULL)
         {
@@ -200,7 +183,7 @@ char *ReadLine()
    * e.g., stop the program!
    */
 
-  return buff; // if there is any error!
+  return buff;
 }
 
 void printNumberOfStudents(linked_list_T *list)
@@ -222,6 +205,8 @@ void createStudent(linked_list_T *list)
   sscanf(id, "%i", &idInt);
   double gpaDouble;
   sscanf(gpa, "%lf", &gpaDouble);
+  free(gpa);
+  free(id);
 
   printf("creating new student:\n");
   printf("%s/%i/%.1lf\n", name, idInt, gpaDouble);
@@ -256,11 +241,19 @@ void printStudentFromList(linked_list_T *list)
 
   int index;
   sscanf(indexStr, "%i", &index);
+  free(indexStr);
 
   printf("Finding student with index: %i\n", index);
 
-  student_cell_T *student = GetLinkedListElement(list, index);
-  printStudent(student);
+  if (index < LinkedListLength(list))
+  {
+    student_cell_T *student = GetLinkedListElement(list, index);
+    printStudent(student);
+  }
+  else
+  {
+    printf("No student found at index!\n");
+  }
 }
 
 void printAllStudents(linked_list_T *list)
@@ -294,7 +287,11 @@ void printGPAs(linked_list_T *list)
     // add to average count
     avg = avg + gpa;
   }
-  avg = avg / length;
+  if (length > 0){
+    avg = avg / length;
+  } else {
+    min = 0;
+  }
 
   printf("Minimum GPA: %.1lf\n", min);
   printf("Maximum GPA: %.1lf\n", max);
@@ -306,6 +303,10 @@ void removeHighestGPA(linked_list_T *list)
   printf("Remving student with highest GPA\n");
   double max = 0;
   int length = LinkedListLength(list);
+  if(length == 0){
+    printf("nothing to remove, list is empty!\n");
+    return;
+  }
   int indexToRemove;
   for (int i = 1; i <= length; i++)
   {
@@ -320,5 +321,4 @@ void removeHighestGPA(linked_list_T *list)
   removeAtIndex(list, indexToRemove);
 
   printf("idx: %i, gpa: %.1lf\n", indexToRemove, max);
-
 }

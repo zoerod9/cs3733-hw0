@@ -1,6 +1,6 @@
 /*
  * File: mylinkedlist.c
- * YOUR NAME ...
+ * Zoe Rodriguez ...
  * YOU NEED TO IMPLEMENT THE FUNCTIONS  here
  * ....
  */
@@ -68,11 +68,12 @@ linked_list_T *NewLinkedList(void)
  */
 void FreeLinkedList(linked_list_T *list)
 {
-  // get length of list
-  // for 0:length of list
-  // get node
-  // free node
-  // free list
+  int length = LinkedListLength(list);
+  for (int i = 1; i <= length; i++)
+  {
+    free(GetLinkedListElement(list, i));
+  }
+  free(list);
 }
 
 /*

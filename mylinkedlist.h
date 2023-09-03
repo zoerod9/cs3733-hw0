@@ -1,20 +1,20 @@
 /*
  * File: mylinkedlist.h
 
- * YOUR NAME ... 
+ * Zoe Rodriguez ...
  * DO NOT CHANGE THE EXISTING STRUCT OR FUNCTION NAMES HERE
  *
- * WHEN ADDING NEW FUNCTIONS, e.g., listing all students, 
+ * WHEN ADDING NEW FUNCTIONS, e.g., listing all students,
  *       finding min, max, avg gpa, and removing the student with highest gpa etc.
- * YOU CAN NAME THEM AS YOU WISH, BUT TRY TO USE THE SAME NAMING CONVENTION  
+ * YOU CAN NAME THEM AS YOU WISH, BUT TRY TO USE THE SAME NAMING CONVENTION
  *
  * THIS IS JUST AN INTERFACE, SO DO NOT WRITE ANY IMPLEMENTATION/CODE HERE
- * ALL IMPLEMENTATION/CODE FOR THE BELOW FUNCTIONS MUST BE in mylinkedlist.c 
- *  
+ * ALL IMPLEMENTATION/CODE FOR THE BELOW FUNCTIONS MUST BE in mylinkedlist.c
+ *
  * -----------------------------------------------------
  * This is just an interface  for a basic library of linked list of students.
- * In future assignments, you will use linked list structure for other purposes 
- * and accordingly reuse/modify functions you develop here... 
+ * In future assignments, you will use linked list structure for other purposes
+ * and accordingly reuse/modify functions you develop here...
  */
 
 #ifndef _mylinkedlist_h
@@ -24,16 +24,16 @@
  * Type: student_cell_T
  * -----------
  * This type defines the cells used for the linked list that
- * stores the student information we use in assing0  
+ * stores the student information we use in assing0
  * You can change this structure later on for other assignments!
  */
-typedef struct student_cell_T {
-   int     id;      
-   double  gpa;       
-   char   *name;  //  name is just a pointer here, you need to allocate space for name
-   struct student_cell_T *next;
+typedef struct student_cell_T
+{
+    int id;
+    double gpa;
+    char *name; //  name is just a pointer here, you need to allocate space for name
+    struct student_cell_T *next;
 } student_cell_T;
-
 
 /*
  * Type: linked_list_T
@@ -43,11 +43,11 @@ typedef struct student_cell_T {
  * The tail field points to the last element in the linked list.
  * The empty linked list is indicated by a NULL head pointer.
  */
-typedef struct linked_list_T {
+typedef struct linked_list_T
+{
     student_cell_T *head;
     student_cell_T *tail;
 } linked_list_T;
-
 
 /*
  * Function: NewStudentCell
@@ -58,7 +58,6 @@ typedef struct linked_list_T {
  */
 student_cell_T *NewStudentCell(int id, double gpa, char *name);
 
-
 /*
  * Function: NewLinkedList
  * Usage: linked_list_T *list;
@@ -67,7 +66,6 @@ student_cell_T *NewStudentCell(int id, double gpa, char *name);
  * This function allocates and returns an empty linked list.
  */
 linked_list_T *NewLinkedList(void);
-
 
 /*
  * Function: FreeLinkedList
@@ -111,7 +109,7 @@ int LinkedListIsFull(linked_list_T *list);
  * ------------------------------
  * This function returns the number of elements in the list.
  */
-int LinkedListLength(linked_list_T  *list);
+int LinkedListLength(linked_list_T *list);
 
 /*
  * Function: GetLinkedListElement
@@ -127,11 +125,10 @@ int LinkedListLength(linked_list_T  *list);
  */
 student_cell_T *GetLinkedListElement(linked_list_T *list, int index);
 
-
 void removeAtIndex(linked_list_T *list, int index);
 
 /* OTHER FUNCTIONS YOU WOULD NEED....
- * EXPORT THEM HERE, BUT IMPLMENT THEM in mylinkedlist.c 
+ * EXPORT THEM HERE, BUT IMPLMENT THEM in mylinkedlist.c
  */
 
 #endif

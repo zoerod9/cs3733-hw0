@@ -16,7 +16,8 @@ void removeStudent(linked_list_T *list);
 void printStudent(student_cell_T *student);
 // this one asks you which student to print from the list
 void printStudentFromList(linked_list_T *list);
-void printAllStudents(linked_list_T* list);
+void printAllStudents(linked_list_T *list);
+void printGPAs(linked_list_T *list);
 
 /*
  * Function: ReadLine
@@ -42,9 +43,11 @@ int main(int argc, char *arvg[])
   // free(name);
   int userInput;
   linked_list_T *list = NewLinkedList();
-  Enlist(list, NewStudentCell(1, 1, "vinny"));
-  Enlist(list, NewStudentCell(2, 1, "zoe"));
-  Enlist(list, NewStudentCell(3, 1, "bubby"));
+  Enlist(list, NewStudentCell(1, 1, "one"));
+  Enlist(list, NewStudentCell(2, 2, "two"));
+  Enlist(list, NewStudentCell(3, 3, "three"));
+  Enlist(list, NewStudentCell(4, 4, "four"));
+  Enlist(list, NewStudentCell(5, 5, "five"));
 
   printf("\n1 - Create a new student cell with given id, gpa, name info, and add (Enlist) it to the end of the linked list. \
 \n2 - Remove (Delist) the first student from linked list and print his/her id, gpa, name info\
@@ -84,7 +87,7 @@ int main(int argc, char *arvg[])
     }
     if (userInput == 6)
     {
-      // printGPAs(list);
+      printGPAs(list);
     }
     if (userInput == 7)
     {
@@ -220,7 +223,7 @@ void createStudent(linked_list_T *list)
   sscanf(gpa, "%lf", &gpaDouble);
 
   printf("creating new student:\n");
-  printf("%s/%i/%lf\n", name, idInt, gpaDouble);
+  printf("%s/%i/%.1lf\n", name, idInt, gpaDouble);
 
   Enlist(list, NewStudentCell(idInt, gpaDouble, name));
 }
@@ -242,9 +245,8 @@ void removeStudent(linked_list_T *list)
 
 void printStudent(student_cell_T *student)
 {
-  printf("%s/%i/%lf\n", student->name, student->id, student->gpa);
+  printf("%s/%i/%.1lf\n", student->name, student->id, student->gpa);
 }
-
 
 void printStudentFromList(linked_list_T *list)
 {
@@ -253,18 +255,47 @@ void printStudentFromList(linked_list_T *list)
 
   int index;
   sscanf(indexStr, "%i", &index);
-  
+
   printf("Finding student with index: %i\n", index);
 
- student_cell_T* student = GetLinkedListElement(list, index); 
- printStudent(student);
+  student_cell_T *student = GetLinkedListElement(list, index);
+  printStudent(student);
 }
 
-void printAllStudents(linked_list_T* list){
+void printAllStudents(linked_list_T *list)
+{
   printf("Printing all students\n");
   int length = LinkedListLength(list);
   for (int i = 1; i <= length; i++)
   {
     printStudent(GetLinkedListElement(list, i));
   }
+}
+
+void printGPAs(linked_list_T *list)
+{
+  printf("Getting min, max, and avg GPA\n");
+  double min = 4, max = 0, avg = 0;
+  int length = LinkedListLength(list);
+  for (int i = 1; i <= length; i++)
+  {
+    // is new max?
+    int gpa = GetLinkedListElement(list, i)->gpa;
+    if (gpa > max)
+    {
+      max = gpa;
+    }
+    // is new min?
+    if (gpa < min)
+    {
+      min = gpa;
+    }
+    // add to average count
+    avg = avg + gpa;
+  }
+  avg = avg / length;
+
+  printf("Minimum GPA: %.1lf\n", min);
+  printf("Maximum GPA: %.1lf\n", max);
+  printf("Average GPA: %.1lf\n", avg);
 }

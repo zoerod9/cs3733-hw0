@@ -1,6 +1,6 @@
 /*
  * File: mylinkedlist.c
- * YOUR NAME ... 
+ * YOUR NAME ...
  * YOU NEED TO IMPLEMENT THE FUNCTIONS  here
  * ....
  */
@@ -8,7 +8,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "mylinkedlist.h"
- 
+
+int countNodesRecursive(student_cell_T *student, int length);
+student_cell_T *getNodesRecursive(student_cell_T *student, int index, int desiredIndex);
+
 /*
  * Function: NewStudentCell
  * Usage: student_cell_T *element;
@@ -18,20 +21,20 @@
  */
 student_cell_T *NewStudentCell(int id, double gpa, char *name)
 {
-   student_cell_T *element;
-  
-   element = (student_cell_T *) malloc( sizeof(student_cell_T) );
-   if( !element){
-     fprintf(stderr,"NewStudentCell cannot allocate memory\n");
-     return NULL;
-   }
-   element->id = id;
-   element->gpa = gpa;
-   element->name = name;
+  student_cell_T *element;
+
+  element = (student_cell_T *)malloc(sizeof(student_cell_T));
+  if (!element)
+  {
+    fprintf(stderr, "NewStudentCell cannot allocate memory\n");
+    return NULL;
+  }
+  element->id = id;
+  element->gpa = gpa;
+  element->name = name;
 
   return element;
 }
-
 
 /*
  * Function: NewLinkedList
@@ -42,20 +45,20 @@ student_cell_T *NewStudentCell(int id, double gpa, char *name)
  */
 linked_list_T *NewLinkedList(void)
 {
-   linked_list_T *list;
-  
-   list = (linked_list_T *) malloc( sizeof(linked_list_T) );
-   if( !list){
-     fprintf(stderr,"NewLinkedList cannot allocate memory\n");
-     return NULL;
-   }
+  linked_list_T *list;
 
-   list->head = NULL;
-   list->tail = NULL;
+  list = (linked_list_T *)malloc(sizeof(linked_list_T));
+  if (!list)
+  {
+    fprintf(stderr, "NewLinkedList cannot allocate memory\n");
+    return NULL;
+  }
+
+  list->head = NULL;
+  list->tail = NULL;
 
   return list;
 }
-
 
 /*
  * Function: FreeLinkedList
@@ -67,8 +70,8 @@ void FreeLinkedList(linked_list_T *list)
 {
   // get length of list
   // for 0:length of list
-    // get node
-    // free node
+  // get node
+  // free node
   // free list
 }
 
@@ -80,9 +83,14 @@ void FreeLinkedList(linked_list_T *list)
  */
 void Enlist(linked_list_T *list, student_cell_T *element)
 {
-  // get the last person from the list
+  // get the first person from the list
   // store it in the new node as their next
+  if (!LinkedListIsEmpty(list))
+  {
+    element->next = list->head;
+  }
   // modify list to point to new first node
+  list->head = element;
 }
 
 /*
@@ -95,10 +103,13 @@ void Enlist(linked_list_T *list, student_cell_T *element)
  */
 student_cell_T *Delist(linked_list_T *list)
 {
+  student_cell_T *element = list->head;
   // from the line, get the original head
   // get that first person's next
   // set that "first person's next" to the head of the list object
+  list->head = element->next;
   // return the original head
+  return element;
 }
 
 /*
@@ -112,13 +123,23 @@ int LinkedListIsEmpty(linked_list_T *list)
 {
   // if the list object has no tail (or no head, really),
   // it must be empty
+  if (list->head == NULL)
+  {
+    return 1;
+  }
+
+  return 0;
 }
 
 int LinkedListIsFull(linked_list_T *list)
 {
-  // if the list has a tail or a head? 
-  // basically flip the boolean from the function above
-  return 0; // because we have linked list
+  // if the list has a tail or a head?
+  if (list->head != NULL)
+  {
+    return 1;
+  }
+
+  return 0;
 }
 
 /*
@@ -127,13 +148,20 @@ int LinkedListIsFull(linked_list_T *list)
  * ------------------------------
  * This function returns the number of elements in the list.
  */
-int LinkedListLength(linked_list_T  *list)
+int LinkedListLength(linked_list_T *list)
 {
+  if (LinkedListIsEmpty(list))
+  {
+    return 0;
+  }
+
+  int initial = 1;
   // recursively traverse each node's next, adding 1 every time you recurse
   // when you run into a node that equals the tail (or that node has no next)
   // break recursion
+
+  return countNodesRecursive(list->head, initial);
 }
-  
 
 /*
  * Function: GetLinkedListElement
@@ -149,15 +177,38 @@ int LinkedListLength(linked_list_T  *list)
  */
 student_cell_T *GetLinkedListElement(linked_list_T *list, int index)
 {
+  int target = 1;
   // recursively traverse each node's next, adding 1 every time you recurse
   // when you run into a node, and how many nodes you've traversed equals the index,
   // break recursion
+  return getNodesRecursive(list->head, target, index);
 }
 
-
-
 /* OTHER FUNCTIONS YOU WOULD NEED....
- * EXPORT THEM HERE, BUT IMPLMENT THEM in mylinkedlist.c 
+ * EXPORT THEM HERE, BUT IMPLMENT THEM in mylinkedlist.c
  */
 
-  
+int countNodesRecursive(student_cell_T *student, int length)
+{
+
+printf("before if youre here\n");
+  if (student->next == NULL)
+  {
+    return length;
+  }
+
+  printf("after if youre here\n");
+
+  return countNodesRecursive(student->next, length + 1);
+}
+
+student_cell_T *getNodesRecursive(student_cell_T *student, int index, int desiredIndex)
+{
+
+  if (index == desiredIndex)
+  {
+    return student;
+  }
+
+  return getNodesRecursive(student->next, index + 1, desiredIndex);
+}

@@ -9,6 +9,9 @@
 #include <stdlib.h>
 #include "mylinkedlist.h"
 
+void printNumberOfStudents(linked_list_T *list);
+void createStudent(linked_list_T *list);
+
 /*
  * Function: ReadLine
  * Usage: s = ReadLine();
@@ -25,12 +28,64 @@ int main(int argc, char *arvg[])
   // But before that, implement your ReadLine() function, and test it as shown below.
   // IF NEEDED, YOU CAN ALSO IMLEMENT YOUR OWN FUNCTIONS HERE
 
-  char *name;
+  // char *name;
 
-  printf("Enter a name to test your ReadLine function  : ");
-  name = ReadLine();
-  printf("User entered : %s \n", name);
-  free(name);
+  // printf("Enter a name to test your ReadLine function  : ");
+  // name = ReadLine();
+  // printf("User entered : %s \n", name);
+  // free(name);
+  int userInput;
+  linked_list_T *list = NewLinkedList();
+
+  printf("\n1 - Create a new student cell with given id, gpa, name info, and add (Enlist) it to the end of the linked list. \
+\n2 - Remove (Delist) the first student from linked list and print his/her id, gpa, name info\
+\n3 - Print the number of students in the linked list (Length)\
+\n4 - Print (id, gpa, name) of a student at a specific index (head of the list is defined as index 0)\
+\n5 - Print the list of all students in the linked list. Print (id, gpa, name) of every student\
+\n6 - Print the min, average, max GPAs in the linked list\
+\n7 - Remove the student with highest GPA and print his/her info (if there are ties, just take the first one you found)\
+\n8 - Exit\n");
+  while (1)
+  {
+    printf("Choose from 1-8:\n");
+    char *userInputStr = ReadLine();
+    sscanf(userInputStr, "%i", &userInput);
+    // userInput = 1;
+
+    if (userInput == 1)
+    {
+      createStudent(list);
+    }
+    if (userInput == 2)
+    {
+      // removeStudent(list);
+    }
+    if (userInput == 3)
+    {
+      printNumberOfStudents(list);
+    }
+    if (userInput == 4)
+    {
+      // printStudent(list);
+    }
+    if (userInput == 5)
+    {
+      // printsStudents(list);
+    }
+    if (userInput == 6)
+    {
+      // printGPAs(list);
+    }
+    if (userInput == 7)
+    {
+      // removeHighestGPA(list);
+    }
+
+    if (userInput == 8)
+    {
+      return 0;
+    }
+  }
 
   return 0;
 }
@@ -80,13 +135,13 @@ char *ReadLine()
 
     if (c != '\n')
     {
-      printf("%i, \n", i);
+      // printf("%i, \n", i);
       /* However, if you DO NOT see '\n' char after 10th character*/
       if (i == initialSize)
       {
         /* resize your original array and double its size*/
         initialSize = initialSize * 2;
-        printf("double buffer size realloc: dooubling to %i\n", initialSize);
+        // printf("double buffer size realloc: dooubling to %i\n", initialSize);
         realloc(buff, initialSize);
         if (buff == NULL)
         {
@@ -108,7 +163,7 @@ char *ReadLine()
        * data into new char array, insert '\0' instead of '\n' */
       if (i < initialSize)
       {
-        printf("reduce size realloc: reducing size to: %i\n", i);
+        // printf("reduce size realloc: reducing size to: %i\n", i);
         realloc(buff, i);
         if (buff == NULL)
         {
@@ -130,6 +185,32 @@ char *ReadLine()
    * NULL from this function. The program calling this function may take other actions,
    * e.g., stop the program!
    */
-  
+
   return buff; // if there is any error!
+}
+
+void printNumberOfStudents(linked_list_T *list)
+{
+  printf("you have %i students on the list\n", LinkedListLength(list));
+}
+
+void createStudent(linked_list_T *list)
+{
+
+  printf("Enter new student's name\n");
+  char *name = ReadLine();
+  printf("Enter new student's gpa\n");
+  char *gpa = ReadLine();
+  printf("Enter new student's id\n");
+  char *id = ReadLine();
+
+  int idInt;
+  sscanf(id, "%i", &idInt);
+  double gpaDouble;
+  sscanf(gpa, "%lf", &gpaDouble);
+
+  printf("creating new student:\n");
+  printf("%s/%i/%lf\n", name, idInt, gpaDouble);
+
+  Enlist(list, NewStudentCell(idInt, gpaDouble, name));
 }

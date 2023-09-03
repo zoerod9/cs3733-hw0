@@ -12,7 +12,10 @@
 void printNumberOfStudents(linked_list_T *list);
 void createStudent(linked_list_T *list);
 void removeStudent(linked_list_T *list);
+// this prints the student it's given
 void printStudent(student_cell_T *student);
+// this one asks you which student to print from the list
+void printStudentFromList(linked_list_T *list);
 
 /*
  * Function: ReadLine
@@ -69,7 +72,7 @@ int main(int argc, char *arvg[])
     }
     if (userInput == 4)
     {
-      // printStudent(list);
+      printStudentFromList(list);
     }
     if (userInput == 5)
     {
@@ -236,4 +239,15 @@ void removeStudent(linked_list_T *list)
 void printStudent(student_cell_T *student)
 {
   printf("%s/%i/%lf\n", student->name, student->id, student->gpa);
+}
+
+void printStudentFromList(linked_list_T *list)
+{
+  printf("Enter student's index\n");
+  char *indexStr = ReadLine();
+
+  int index;
+  sscanf(indexStr, "%i", &index);
+  
+  printf("Finding student with index: %i\n", index);
 }

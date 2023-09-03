@@ -18,6 +18,7 @@ void printStudent(student_cell_T *student);
 void printStudentFromList(linked_list_T *list);
 void printAllStudents(linked_list_T *list);
 void printGPAs(linked_list_T *list);
+void removeHighestGPA(linked_list_T *list);
 
 /*
  * Function: ReadLine
@@ -43,11 +44,11 @@ int main(int argc, char *arvg[])
   // free(name);
   int userInput;
   linked_list_T *list = NewLinkedList();
-  Enlist(list, NewStudentCell(1, 1, "one"));
-  Enlist(list, NewStudentCell(2, 2, "two"));
-  Enlist(list, NewStudentCell(3, 3, "three"));
   Enlist(list, NewStudentCell(4, 4, "four"));
   Enlist(list, NewStudentCell(5, 5, "five"));
+  Enlist(list, NewStudentCell(3, 3, "three"));
+  Enlist(list, NewStudentCell(2, 2, "two"));
+  Enlist(list, NewStudentCell(1, 1, "one"));
 
   printf("\n1 - Create a new student cell with given id, gpa, name info, and add (Enlist) it to the end of the linked list. \
 \n2 - Remove (Delist) the first student from linked list and print his/her id, gpa, name info\
@@ -91,7 +92,7 @@ int main(int argc, char *arvg[])
     }
     if (userInput == 7)
     {
-      // removeHighestGPA(list);
+      removeHighestGPA(list);
     }
 
     if (userInput == 8)
@@ -298,4 +299,26 @@ void printGPAs(linked_list_T *list)
   printf("Minimum GPA: %.1lf\n", min);
   printf("Maximum GPA: %.1lf\n", max);
   printf("Average GPA: %.1lf\n", avg);
+}
+
+void removeHighestGPA(linked_list_T *list)
+{
+  printf("Remving student with highest GPA\n");
+  double max = 0;
+  int length = LinkedListLength(list);
+  int indexToRemove;
+  for (int i = 1; i <= length; i++)
+  {
+    int gpa = GetLinkedListElement(list, i)->gpa;
+    if (gpa > max)
+    {
+      max = gpa;
+      indexToRemove = i;
+    }
+  }
+
+  removeAtIndex(list, indexToRemove);
+
+  printf("idx: %i, gpa: %.1lf\n", indexToRemove, max);
+
 }

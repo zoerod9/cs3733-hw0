@@ -209,3 +209,12 @@ student_cell_T *getNodesRecursive(student_cell_T *student, int index, int desire
   return getNodesRecursive(student->next, index + 1, desiredIndex);
 }
 
+void removeAtIndex(linked_list_T *list, int index)
+{
+  student_cell_T *before = GetLinkedListElement(list, index - 1);
+  student_cell_T *student = GetLinkedListElement(list, index);
+  student_cell_T *after = GetLinkedListElement(list, index + 1);
+  before->next = after;
+
+  printf("%s/%i/%.1lf\n", student->name, student->id, student->gpa);
+}

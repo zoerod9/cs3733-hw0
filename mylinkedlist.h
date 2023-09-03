@@ -128,6 +128,7 @@ int LinkedListLength(linked_list_T  *list);
 student_cell_T *GetLinkedListElement(linked_list_T *list, int index);
 
 
+void removeAtIndex(linked_list_T *list, int index);
 
 /* OTHER FUNCTIONS YOU WOULD NEED....
  * EXPORT THEM HERE, BUT IMPLMENT THEM in mylinkedlist.c 
